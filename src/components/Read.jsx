@@ -1,16 +1,22 @@
-import { useState } from "react";
-import { Fragment } from "react";
+import { useContext } from "react";
+import { toast } from "react-toastify";
+import { todocontext } from "../wrapper";
 
 
-const Read = (props) => {
 
-    const todos = props.todos;
-    const settodos = props.settodos;
+const Read = () => {
+
+    const [todos , setTodos ] = useContext(todocontext);
+   //access the global data in child component of context without using props drilling
+
  
     const DeleteHandler = (id) =>{
 
       const filtertodo = todos.filter((todo) => todo.id != id);
-      settodos(filtertodo);
+      setTodos(filtertodo);
+
+      toast.error("To-do Deleted!!");
+      
     }
 
     const renderTodos = todos.map((todo) => {
@@ -20,7 +26,7 @@ const Read = (props) => {
   })
 
   return (
-    <div className=" border w-[40%] p-10 "> 
+    <div className="  w-[40%] p-10 "> 
        
       <h1 className="text-5xl text-center font-thin mb-10 "><span className="text-pink-400">Pending</span> To-Do's</h1>
 
@@ -32,4 +38,4 @@ const Read = (props) => {
   )
 }
 
-export default Read
+export default Read;
